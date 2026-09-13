@@ -87,9 +87,21 @@ This is a working prototype focused on concept validation and visual exploration
 - Improve mobile responsiveness
 - Expand support to other cities and larger datasets
 
-## License
+## Project highlights
 
-This project is provided as-is for experimentation and educational use.
+- Interactive, map-first walkability exploration
+- Station search and filtering for major Tokyo hubs
+- Time-based walking access: 5, 10, 15, 20, and 30 minute ranges
+- Demo mode and ORS API integration for real isochrone analysis
+- Clean single-page interface optimized for quick comparison
+- Public GitHub Pages demo for easy access
+
+## Repository features
+
+- [RELEASE_NOTES.md](RELEASE_NOTES.md) for version history
+- [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidance
+- [LICENSE](LICENSE) for project licensing
+- [docs/walking-map-demo.png](docs/walking-map-demo.png) for repository preview images
 
 ## Contributing
 
@@ -100,6 +112,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guidelines.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Release notes
+
+See [RELEASE_NOTES.md](RELEASE_NOTES.md) for the latest changes and version summaries.
 
 ## Screenshot
 
