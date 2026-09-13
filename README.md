@@ -13,6 +13,10 @@ A lightweight interactive map prototype that visualizes how far a person can wal
 
 This project helps answer a practical urban planning question: how accessible is a location by foot from nearby transit stations?
 
+<p align="center">
+  <img src="./docs/walking-map-banner.svg" alt="Walking Map project banner" width="1200" />
+</p>
+
 ## Project at a glance
 
 - Coverage: Tokyo transit stations and nearby walkable areas
@@ -51,6 +55,13 @@ Walking access is a critical part of urban mobility, livability, and real-estate
 - Real-estate and commercial location evaluation
 - Pedestrian-first neighborhood studies
 - Mobility and transport accessibility reviews
+
+## Why it stands out
+
+- Fast, single-page exploration with no heavy setup
+- Built for quick urban comparison between station catchments
+- Visualizes real walking access in a way that is easy to understand
+- Great for demos, ideation, and early-stage neighborhood analysis
 
 ## Tech stack
 

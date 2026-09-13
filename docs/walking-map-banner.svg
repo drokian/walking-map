@@ -1,0 +1,73 @@
+<svg width="1600" height="500" viewBox="0 0 1600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.28" stop-color="#134E4A"/>
+      <stop offset="0.7" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="280" y1="100" x2="980" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34D399"/>
+      <stop offset="1" stop-color="#60A5FA"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020617" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="500" rx="26" fill="url(#bg)"/>
+
+  <g opacity="0.12">
+    <path d="M0 392C149 352 245 312 347 346C509 397 599 398 738 329C896 253 999 252 1141 321C1284 390 1440 404 1600 333V500H0V392Z" fill="#A7F3D0"/>
+    <path d="M0 311C97 268 205 244 310 255C441 269 533 330 642 314C768 295 852 205 985 196C1117 188 1207 275 1323 295C1445 316 1527 282 1600 242V500H0V311Z" fill="#BFDBFE"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="118" y="86" width="620" height="328" rx="26" fill="rgba(15, 23, 42, 0.38)" stroke="rgba(148, 163, 184, 0.28)"/>
+  </g>
+
+  <g opacity="0.9">
+    <path d="M202 351C248 202 304 154 410 121C521 86 590 147 608 222C626 297 577 341 514 355C454 369 384 382 302 373C257 369 220 364 202 351Z" fill="url(#accent)" fill-opacity="0.2"/>
+    <path d="M198 345C247 220 312 170 415 140C528 109 594 175 614 241C636 312 595 342 529 356C458 371 390 383 315 374C269 369 226 360 198 345Z" stroke="url(#accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g>
+    <circle cx="416" cy="220" r="12" fill="#F8FAFC"/>
+    <circle cx="416" cy="220" r="32" stroke="#F8FAFC" stroke-opacity="0.5" stroke-width="2"/>
+    <path d="M416 186V147" stroke="#F8FAFC" stroke-width="4" stroke-linecap="round"/>
+    <path d="M416 293V255" stroke="#F8FAFC" stroke-width="4" stroke-linecap="round"/>
+    <path d="M382 220H343" stroke="#F8FAFC" stroke-width="4" stroke-linecap="round"/>
+    <path d="M490 220H450" stroke="#F8FAFC" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g fill="#E2E8F0">
+    <circle cx="283" cy="275" r="10"/>
+    <circle cx="528" cy="187" r="10"/>
+    <circle cx="567" cy="312" r="10"/>
+    <circle cx="454" cy="334" r="10"/>
+    <circle cx="655" cy="248" r="10"/>
+  </g>
+
+  <g opacity="0.8">
+    <path d="M271 265L416 220L655 248" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M416 220L528 187" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round"/>
+    <path d="M416 220L567 312" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <rect x="859" y="124" width="420" height="90" rx="20" fill="rgba(15, 23, 42, 0.38)" stroke="rgba(148, 163, 184, 0.20)"/>
+    <text x="894" y="170" fill="#F8FAFC" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Walking Map</text>
+    <text x="894" y="201" fill="#BFDBFE" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="500">Tokyo walkability explorer</text>
+  </g>
+
+  <g>
+    <rect x="859" y="240" width="500" height="110" rx="22" fill="rgba(15, 23, 42, 0.34)" stroke="rgba(148, 163, 184, 0.20)"/>
+    <text x="894" y="282" fill="#ECFDF5" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="800">15 min</text>
+    <text x="894" y="325" fill="#DBEAFE" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="600">Walkability around Tokyo stations</text>
+  </g>
+
+  <g opacity="0.9">
+    <rect x="859" y="374" width="178" height="42" rx="21" fill="#22C55E"/>
+    <text x="906" y="402" fill="#052E16" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Live Demo</text>
+  </g>
+</svg>
