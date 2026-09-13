@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">Walking Map Demo Preview</title>
+  <desc id="desc">Stylized map interface showing a station search panel and walking access zones around Shibuya.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#e7f2ea"/>
+      <stop offset="100%" stop-color="#d9edf9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="900" fill="url(#bg)"/>
+
+  <g opacity="0.9">
+    <path d="M0 0H1400V900H0Z" fill="none"/>
+  </g>
+
+  <g transform="translate(360,50)" filter="url(#shadow)">
+    <rect x="0" y="0" width="1020" height="780" rx="20" fill="#edf5ef" stroke="#c8d8cb" stroke-width="2"/>
+
+    <g opacity="0.7">
+      <path d="M40 120L220 110L330 200L250 320L110 330L60 220Z" fill="#d7e7d5"/>
+      <path d="M300 130L520 100L650 220L610 380L420 420L350 260Z" fill="#dce9db"/>
+      <path d="M650 130L930 140L980 290L890 430L700 450L620 310Z" fill="#d2e7d0"/>
+      <path d="M100 420L330 390L380 540L200 700L60 660L20 500Z" fill="#dfeeed"/>
+      <path d="M430 460L760 490L900 700L670 760L420 680L370 540Z" fill="#dfe9d8"/>
+    </g>
+
+    <g stroke="#b0b8b3" stroke-width="3" fill="none" opacity="0.55">
+      <path d="M70 170L520 90L830 180L980 300"/>
+      <path d="M130 330L610 290L760 470L930 610"/>
+      <path d="M110 540L370 560L510 710L760 690"/>
+      <path d="M360 80L390 620"/>
+      <path d="M570 100L540 760"/>
+      <path d="M760 120L790 760"/>
+    </g>
+
+    <g fill="#2c7a7b" fill-opacity="0.12" stroke="#2c7a7b" stroke-width="2">
+      <circle cx="560" cy="430" r="155"/>
+      <circle cx="560" cy="430" r="220"/>
+      <circle cx="560" cy="430" r="290"/>
+      <circle cx="560" cy="430" r="360"/>
+    </g>
+
+    <g fill="#fff" stroke="#3d3d3d" stroke-width="2">
+      <circle cx="560" cy="430" r="8"/>
+      <circle cx="420" cy="360" r="5"/>
+      <circle cx="660" cy="340" r="5"/>
+      <circle cx="500" cy="290" r="5"/>
+      <circle cx="620" cy="600" r="5"/>
+      <circle cx="700" cy="510" r="5"/>
+      <circle cx="470" cy="530" r="5"/>
+      <circle cx="750" cy="390" r="5"/>
+      <circle cx="310" cy="500" r="5"/>
+      <circle cx="850" cy="520" r="5"/>
+    </g>
+
+    <g font-family="Arial, sans-serif" fill="#25313a">
+      <text x="540" y="420" text-anchor="middle" font-size="24" font-weight="700">Shibuya</text>
+      <text x="540" y="448" text-anchor="middle" font-size="12" opacity="0.75">Tokyo</text>
+    </g>
+  </g>
+
+  <g transform="translate(20,26)" filter="url(#shadow)">
+    <rect x="0" y="0" width="330" height="470" rx="12" fill="#ffffff"/>
+    <text x="18" y="34" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1c1c1c">Tokyo 15 Dakika Yürüme Haritası</text>
+    <text x="18" y="62" font-family="Arial, sans-serif" font-size="12" fill="#444">Gerçek veri aşaması — Tokyo raylı sistem istasyonları</text>
+    <text x="18" y="78" font-family="Arial, sans-serif" font-size="12" fill="#444">canlı veri dosyasından yüklenir.</text>
+
+    <rect x="18" y="102" width="294" height="38" rx="6" fill="#f8f8f8" stroke="#b8b8b8"/>
+    <text x="30" y="129" font-family="Arial, sans-serif" font-size="12" fill="#7a7a7a">İstasyon ara: Shinjuku, Shibuya...</text>
+
+    <text x="18" y="170" font-family="Arial, sans-serif" font-size="12" fill="#333">OpenRouteService API anahtarı:</text>
+    <rect x="18" y="180" width="294" height="38" rx="6" fill="#f8f8f8" stroke="#b8b8b8"/>
+    <text x="30" y="206" font-family="Arial, sans-serif" font-size="12" fill="#7a7a7a">ORS API key — isteğe bağlı</text>
+
+    <rect x="18" y="238" width="294" height="38" rx="6" fill="#242424"/>
+    <text x="148" y="263" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Yürüme alanını göster</text>
+
+    <rect x="18" y="295" width="294" height="88" rx="8" fill="#fff7d6"/>
+    <text x="28" y="324" font-family="Arial, sans-serif" font-size="12" fill="#333">API anahtarı girilmezse demo modunda</text>
+    <text x="28" y="340" font-family="Arial, sans-serif" font-size="12" fill="#333">yaklaşık alan gösterilir.</text>
+    <text x="28" y="368" font-family="Arial, sans-serif" font-size="12" fill="#333">ORS ile gerçek yaya ağı kullanılabilir.</text>
+
+    <g transform="translate(18,402)">
+      <circle cx="10" cy="10" r="7" fill="#2ca25f"/>
+      <text x="24" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">5 dk</text>
+      <circle cx="82" cy="10" r="7" fill="#f1c40f"/>
+      <text x="96" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">10 dk</text>
+      <circle cx="170" cy="10" r="7" fill="#2ca25f"/>
+      <text x="184" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">15 dk</text>
+      <circle cx="252" cy="10" r="7" fill="#2b8cbe"/>
+      <text x="266" y="15" font-family="Arial, sans-serif" font-size="12" fill="#333">20 dk</text>
+    </g>
+  </g>
+</svg>
