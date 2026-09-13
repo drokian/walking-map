@@ -7,28 +7,35 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
 <style>
   html,body,#map{height:100%;margin:0}
-  body{font-family:Arial,sans-serif;background:#eef2f6}
-  #panel{
-    position:absolute;z-index:1000;top:12px;left:12px;width:min(330px,calc(100vw - 28px));
-    background:#fff;padding:14px;border-radius:12px;
-    box-shadow:0 3px 18px rgba(0,0,0,.2)
+  body{
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#edf7ee 0%,#f4f7fb 100%);
+    color:#1f2937;
   }
-  h2{margin:0 0 8px;font-size:18px}
-  p{font-size:13px;line-height:1.4;margin:6px 0}
-  input,select,button{box-sizing:border-box;width:100%;padding:9px;margin-top:7px;border:1px solid #bbb;border-radius:6px;font-size:13px}
-  button{cursor:pointer;background:#222;color:white;border:none}
-  button:hover{background:#333}
+  #panel{
+    position:absolute;z-index:1000;top:12px;left:12px;width:min(360px,calc(100vw - 28px));
+    background:rgba(255,255,255,.94);padding:16px 14px 12px;border-radius:16px;
+    border:1px solid rgba(148,163,184,.24);
+    box-shadow:0 16px 38px rgba(15,23,42,.12);
+    backdrop-filter:blur(8px);
+  }
+  h2{margin:0 0 8px;font-size:20px;line-height:1.2}
+  p{font-size:13px;line-height:1.45;margin:6px 0}
+  input,select,button{box-sizing:border-box;width:100%;padding:10px 11px;margin-top:7px;border:1px solid #cbd5e1;border-radius:10px;font-size:13px}
+  input:focus,select:focus{outline:2px solid rgba(59,130,246,.18);border-color:#60a5fa}
+  button{cursor:pointer;background:linear-gradient(135deg,#111827,#1f2937);color:white;border:none;font-weight:600}
+  button:hover{background:linear-gradient(135deg,#1f2937,#111827)}
   .row{display:flex;align-items:center;gap:8px;margin-top:8px}
-  .row .label{flex:1}
-  .toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#333;margin-top:8px}
+  .row .label{flex:1;font-weight:600;color:#334155}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#334155;margin-top:8px;padding:6px 0}
   .toggle input{width:auto;margin:0}
-  .station-list{max-height:180px;overflow:auto;margin-top:8px}
-  .station{padding:7px;border-bottom:1px solid #eee;cursor:pointer;font-size:13px}
-  .station:hover{background:#f2f2f2}
-  .legend{font-size:12px;margin-top:8px}
-  .legend-row{display:flex;align-items:center;gap:8px;margin-top:4px}
+  .station-list{max-height:180px;overflow:auto;margin-top:8px;padding-right:2px}
+  .station{padding:8px 7px;border-bottom:1px solid #eef2f7;cursor:pointer;font-size:13px;border-radius:8px}
+  .station:hover{background:#f8fafc}
+  .legend{font-size:12px;margin-top:10px;padding-top:8px;border-top:1px solid #e2e8f0}
+  .legend-row{display:flex;align-items:center;gap:8px;margin-top:4px;color:#475569}
   .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px}
-  .note{background:#fff7d6;padding:7px;border-radius:6px;margin-top:8px}
+  .note{background:linear-gradient(135deg,#fff7d6,#fef3c7);padding:8px 9px;border-radius:10px;margin-top:8px;border:1px solid rgba(251,191,36,.3);color:#4b5563}
   .leaflet-tooltip.station-label {
     background: rgba(255,255,255,.96);
     border: 1px solid rgba(0,0,0,.18);
@@ -52,7 +59,8 @@
     padding: 4px 8px;
   }
   @media (max-width: 700px) {
-    #panel{left:8px;top:8px;width:calc(100vw - 16px);max-width:320px}
+    #panel{left:8px;top:8px;width:calc(100vw - 16px);max-width:360px;padding:12px 10px}
+    h2{font-size:18px}
     .station-list{max-height:120px}
   }
 </style>
@@ -125,6 +133,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const STATIONS_URL = "https://raw.githubusercontent.com/nagix/mini-tokyo-3d/master/data/stations.json";
+const STORAGE_KEY = 'walking-map-language';
 
 const translations = {
   tr: {
@@ -208,9 +217,27 @@ function t(key) {
   return (translations[currentLanguage] && translations[currentLanguage][key]) || key;
 }
 
+function getPreferredLanguage() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && translations[stored]) return stored;
+  } catch (err) {
+    // localStorage unavailable in restricted contexts; ignore and continue
+  }
+
+  const browserLanguage = (navigator.language || '').toLowerCase();
+  if (browserLanguage.startsWith('en')) return 'en';
+  return 'tr';
+}
+
 function setLanguage(lang) {
   if (!translations[lang]) lang = 'tr';
   currentLanguage = lang;
+  try {
+    localStorage.setItem(STORAGE_KEY, lang);
+  } catch (err) {
+    // ignore storage errors in restricted environments
+  }
   document.documentElement.lang = lang;
   document.title = t('pageTitle');
   document.getElementById('pageTitle').textContent = t('pageTitle');
@@ -541,7 +568,7 @@ async function calculateSelected(){
 }
 
 loadRealStationData();
-setLanguage(currentLanguage);
+setLanguage(getPreferredLanguage());
 </script>
 </body>
 </html>
