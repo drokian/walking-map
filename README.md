@@ -13,6 +13,12 @@ A lightweight interactive map prototype that visualizes how far a person can wal
 
 This project helps answer a practical urban planning question: how accessible is a location by foot from nearby transit stations?
 
+## Live demo
+
+Open the project directly here:
+
+- https://drokian.github.io/walking-map/
+
 <p align="center">
   <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80" alt="City map and transit access" width="900" />
 </p>
