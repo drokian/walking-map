@@ -61,18 +61,26 @@
 <div id="map"></div>
 
 <div id="panel">
-  <h2>Tokyo 15 Dakika Yürüme Haritası</h2>
-  <p><b>Gerçek veri aşaması</b> — Tokyo raylı sistem istasyonları canlı veri dosyasından yüklenir.</p>
+  <div class="row" style="margin-top:0; margin-bottom:8px; align-items:center;">
+    <div class="label" style="flex:1; font-size:12px; color:#555;">Language / Dil</div>
+    <select id="languageSelect" style="width:auto; min-width:98px; margin-top:0;">
+      <option value="tr">Türkçe</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+
+  <h2 id="pageTitle">Tokyo 15 Dakika Yürüme Haritası</h2>
+  <p id="subtitle"><b>Gerçek veri aşaması</b> — Tokyo raylı sistem istasyonları canlı veri dosyasından yüklenir.</p>
 
   <input id="search" placeholder="İstasyon ara: Shinjuku, Shibuya...">
 
-  <label style="font-size:13px;display:block;margin-top:8px">
+  <label id="apiKeyLabel" style="font-size:13px;display:block;margin-top:8px">
     OpenRouteService API anahtarı (gerçek yaya izokronu için):
   </label>
   <input id="apiKey" type="password" placeholder="ORS API key — isteğe bağlı">
 
   <div class="row">
-    <div class="label">Yürüyüş süresi</div>
+    <div id="walkDurationLabel" class="label">Yürüyüş süresi</div>
     <select id="walkMinutes">
       <option value="5">5 dakika</option>
       <option value="10">10 dakika</option>
@@ -84,23 +92,23 @@
 
   <label class="toggle">
     <input type="checkbox" id="importantOnly" />
-    <span>Sadece önemli istasyonları göster</span>
+    <span id="importantOnlyLabel">Sadece önemli istasyonları göster</span>
   </label>
 
-  <button onclick="calculateSelected()">Yürüme alanını göster</button>
+  <button id="calculateButton" onclick="calculateSelected()">Yürüme alanını göster</button>
 
-  <div class="note">
+  <div id="note" class="note">
     API anahtarı girilmezse demo modunda yaklaşık alan gösterilir.
     API anahtarı girildiğinde <b>foot-walking</b> profiliyle gerçek yaya ağı kullanılır.
   </div>
 
   <div class="legend">
-    <div class="legend-row"><span class="dot" style="background:#74c476"></span> 5 dk</div>
-    <div class="legend-row"><span class="dot" style="background:#f1c40f"></span> 10 dk</div>
-    <div class="legend-row"><span class="dot" style="background:#2ca25f"></span> 15 dk</div>
-    <div class="legend-row"><span class="dot" style="background:#2b8cbe"></span> 20 dk</div>
-    <div class="legend-row"><span class="dot" style="background:#8856a7"></span> 30 dk</div>
-    <div style="color:#666;margin-top:6px">Örnek istasyon ağı; ORS ile gerçek yaya erişimi de hesaplanabilir.</div>
+    <div class="legend-row"><span class="dot" style="background:#74c476"></span> <span data-legend="5">5 dk</span></div>
+    <div class="legend-row"><span class="dot" style="background:#f1c40f"></span> <span data-legend="10">10 dk</span></div>
+    <div class="legend-row"><span class="dot" style="background:#2ca25f"></span> <span data-legend="15">15 dk</span></div>
+    <div class="legend-row"><span class="dot" style="background:#2b8cbe"></span> <span data-legend="20">20 dk</span></div>
+    <div class="legend-row"><span class="dot" style="background:#8856a7"></span> <span data-legend="30">30 dk</span></div>
+    <div id="legendCaption" style="color:#666;margin-top:6px">Örnek istasyon ağı; ORS ile gerçek yaya erişimi de hesaplanabilir.</div>
   </div>
   <div id="status" style="font-size:12px;margin-top:9px;color:#444">Gerçek istasyon verisi hazırlanıyor…</div><div id="stationList" class="station-list"></div>
 </div>
@@ -118,6 +126,62 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const STATIONS_URL = "https://raw.githubusercontent.com/nagix/mini-tokyo-3d/master/data/stations.json";
 
+const translations = {
+  tr: {
+    pageTitle: 'Tokyo 15 Dakika Yürüme Haritası',
+    subtitleHtml: '<b>Gerçek veri aşaması</b> — Tokyo raylı sistem istasyonları canlı veri dosyasından yüklenir.',
+    searchPlaceholder: 'İstasyon ara: Shinjuku, Shibuya...',
+    apiKeyLabel: 'OpenRouteService API anahtarı (gerçek yaya izokronu için):',
+    apiKeyPlaceholder: 'ORS API key — isteğe bağlı',
+    walkDuration: 'Yürüyüş süresi',
+    importantOnly: 'Sadece önemli istasyonları göster',
+    calculateButton: 'Yürüme alanını göster',
+    noteHtml: 'API anahtarı girilmezse demo modunda yaklaşık alan gösterilir. API anahtarı girildiğinde <b>foot-walking</b> profiliyle gerçek yaya ağı kullanılır.',
+    legendCaption: 'Örnek istasyon ağı; ORS ile gerçek yaya erişimi de hesaplanabilir.',
+    statusLoading: 'Gerçek istasyon verisi hazırlanıyor…',
+    statusLoaded: 'Gerçek istasyon verisi yüklendi:',
+    statusLoadedSuffix: 'benzersiz istasyon noktası.',
+    dataLoadFailed: 'Veri yüklenemedi.',
+    dataLoadFailureHint: 'HTML dosyasını internet bağlantısı olan bir tarayıcıda açın.',
+    noResults: 'Sonuç bulunamadı.',
+    stationButton: '15 dk alanını göster',
+    stationButtonEn: 'Show 15 min area',
+    minutes: 'dakika',
+    demoArea: 'Demo yürüme alanı:',
+    demoAreaNote: 'Gerçek yaya ağı için ORS API anahtarı girin.',
+    realIsochrone: 'Gerçek yaya ağı izokronu:',
+    apiError: 'Gerçek yaya alanı hesaplanamadı:',
+    apiErrorHint: 'API anahtarını kontrol edin. Demo alanını görmek için anahtar alanını boş bırakabilirsiniz.'
+  },
+  en: {
+    pageTitle: 'Tokyo 15 Minute Walking Map',
+    subtitleHtml: '<b>Live data stage</b> — Tokyo rail stations are loaded from a live station dataset.',
+    searchPlaceholder: 'Search station: Shinjuku, Shibuya...',
+    apiKeyLabel: 'OpenRouteService API key (for real walking isochrones):',
+    apiKeyPlaceholder: 'ORS API key — optional',
+    walkDuration: 'Walking time',
+    importantOnly: 'Show only important stations',
+    calculateButton: 'Show walking area',
+    noteHtml: 'When no API key is provided, the app shows an approximate demo area. When an API key is supplied, it uses the <b>foot-walking</b> profile for real pedestrian routing.',
+    legendCaption: 'Sample station network; real walking access can also be calculated with ORS.',
+    statusLoading: 'Loading real station data…',
+    statusLoaded: 'Real station data loaded:',
+    statusLoadedSuffix: 'unique station points.',
+    dataLoadFailed: 'Could not load data.',
+    dataLoadFailureHint: 'Open the HTML file in a browser with internet access.',
+    noResults: 'No results found.',
+    stationButton: 'Show 15 min area',
+    stationButtonEn: 'Show 15 min area',
+    minutes: 'minutes',
+    demoArea: 'Demo walking area:',
+    demoAreaNote: 'Enter an ORS API key for real pedestrian network access.',
+    realIsochrone: 'Real pedestrian network isochrone:',
+    apiError: 'Could not calculate the real walking area:',
+    apiErrorHint: 'Check the API key. Leave it empty to view the demo area instead.'
+  }
+};
+
+let currentLanguage = 'tr';
 let stations = [];
 let markerLayer = L.layerGroup().addTo(map);
 let stationIndex = new Map();
@@ -139,6 +203,56 @@ const LANDMARKS = [
   { name: 'Asakusa', lat: 35.7148, lon: 139.7967 },
   { name: 'Akihabara', lat: 35.6984, lon: 139.7743 }
 ];
+
+function t(key) {
+  return (translations[currentLanguage] && translations[currentLanguage][key]) || key;
+}
+
+function setLanguage(lang) {
+  if (!translations[lang]) lang = 'tr';
+  currentLanguage = lang;
+  document.documentElement.lang = lang;
+  document.title = t('pageTitle');
+  document.getElementById('pageTitle').textContent = t('pageTitle');
+  document.getElementById('subtitle').innerHTML = t('subtitleHtml');
+  document.getElementById('search').placeholder = t('searchPlaceholder');
+  document.getElementById('apiKeyLabel').textContent = t('apiKeyLabel');
+  document.getElementById('apiKey').placeholder = t('apiKeyPlaceholder');
+  document.getElementById('walkDurationLabel').textContent = t('walkDuration');
+  document.getElementById('importantOnlyLabel').textContent = t('importantOnly');
+  document.getElementById('calculateButton').textContent = t('calculateButton');
+  document.getElementById('note').innerHTML = t('noteHtml');
+  document.getElementById('legendCaption').textContent = t('legendCaption');
+  document.getElementById('languageSelect').value = lang;
+
+  const options = [
+    { value: '5', label: lang === 'tr' ? '5 dakika' : '5 min' },
+    { value: '10', label: lang === 'tr' ? '10 dakika' : '10 min' },
+    { value: '15', label: lang === 'tr' ? '15 dakika' : '15 min' },
+    { value: '20', label: lang === 'tr' ? '20 dakika' : '20 min' },
+    { value: '30', label: lang === 'tr' ? '30 dakika' : '30 min' }
+  ];
+
+  const walkMinutesEl = document.getElementById('walkMinutes');
+  walkMinutesEl.innerHTML = options.map(item => `<option value="${item.value}">${item.label}</option>`).join('');
+  walkMinutesEl.value = String(walkMinutes);
+
+  document.querySelectorAll('[data-legend]').forEach((node) => {
+    const value = node.getAttribute('data-legend');
+    node.textContent = value === '5' ? (lang === 'tr' ? '5 dk' : '5 min') : value === '10' ? (lang === 'tr' ? '10 dk' : '10 min') : value === '15' ? (lang === 'tr' ? '15 dk' : '15 min') : value === '20' ? (lang === 'tr' ? '20 dk' : '20 min') : (lang === 'tr' ? '30 dk' : '30 min');
+  });
+
+  if (document.getElementById('status').textContent.includes('Gerçek istasyon') || document.getElementById('status').textContent.includes('Loading')) {
+    document.getElementById('status').textContent = t('statusLoading');
+  }
+
+  renderList(document.getElementById('search').value || '');
+  refreshStationLabels();
+
+  if (selected) {
+    calculateSelected();
+  }
+}
 
 function getWalkRadiusMeters(minutes) {
   const mapping = { 5: 400, 10: 800, 15: 1200, 20: 1700, 30: 2500 };
@@ -270,7 +384,7 @@ function renderRealStations() {
       `<b>${escapeHtml(s.name)}</b>` +
       (s.ja ? `<br>${escapeHtml(s.ja)}` : "") +
       `<br><span style="color:#666">${escapeHtml(lineText)}</span>` +
-      `<br><button onclick="selectStation(${i})">15 dk alanını göster</button>`
+      `<br><button onclick="selectStation(${i})">${t('stationButton')}</button>`
     );
     s.marker = m;
   });
@@ -280,8 +394,9 @@ function renderRealStations() {
 
   renderList();
   drawLandmarks();
+  const locale = currentLanguage === 'tr' ? 'tr-TR' : 'en-US';
   document.getElementById("status").innerHTML =
-    `<b>Gerçek istasyon verisi yüklendi:</b> ${stations.length.toLocaleString("tr-TR")} benzersiz istasyon noktası.`;
+    `<b>${t('statusLoaded')}</b> ${stations.length.toLocaleString(locale)} ${t('statusLoadedSuffix')}`;
 }
 
 function escapeHtml(value) {
@@ -291,23 +406,23 @@ function escapeHtml(value) {
 }
 
 async function loadRealStationData() {
-  document.getElementById("status").textContent = "Gerçek Tokyo istasyon verisi yükleniyor…";
+  document.getElementById("status").textContent = t('statusLoading');
 
   try {
     const response = await fetch(STATIONS_URL, {cache:"no-cache"});
-    if (!response.ok) throw new Error("İstasyon verisi HTTP " + response.status);
+    if (!response.ok) throw new Error((currentLanguage === 'tr' ? 'İstasyon verisi HTTP ' : 'Station data HTTP ') + response.status);
 
     const rows = await response.json();
     stations = deduplicateStations(rows);
 
-    if (!stations.length) throw new Error("İstasyon verisi boş.");
+    if (!stations.length) throw new Error(currentLanguage === 'tr' ? 'İstasyon verisi boş.' : 'Station data is empty.');
     renderRealStations();
 
     map.setView([35.681236, 139.767125], 11);
   } catch (err) {
     document.getElementById("status").innerHTML =
-      `<b>Veri yüklenemedi.</b> ${escapeHtml(err.message)}<br>` +
-      `<small>HTML dosyasını internet bağlantısı olan bir tarayıcıda açın.</small>`;
+      `<b>${t('dataLoadFailed')}</b> ${escapeHtml(err.message)}<br>` +
+      `<small>${t('dataLoadFailureHint')}</small>`;
     console.error(err);
   }
 }
@@ -337,13 +452,14 @@ function renderList(filter=""){
     });
 
   if (!list.children.length) {
-    list.innerHTML='<div style="padding:7px;color:#666">Sonuç bulunamadı.</div>';
+    list.innerHTML=`<div style="padding:7px;color:#666">${t('noResults')}</div>`;
   }
 }
 
 document.getElementById('search').addEventListener('input', e=>renderList(e.target.value));
 document.getElementById('walkMinutes').addEventListener('change', updateWalkMinutes);
 document.getElementById('importantOnly').addEventListener('change', updateImportantOnlyFilter);
+document.getElementById('languageSelect').addEventListener('change', e => setLanguage(e.target.value));
 
 function selectStation(i){
   if (selected && selected.marker) {
@@ -382,7 +498,7 @@ async function calculateSelected(){
 
     activeLayer = L.layerGroup(ranges.map(item => item.layer));
     activeLayer.addTo(map);
-    activeLayer.bindPopup(`<b>${selected.name}</b><br>Demo yürüme alanı: 5 / 10 / 15 / 20 / 30 dakika<br><small>Gerçek yaya ağı için ORS API anahtarı girin.</small>`);
+    activeLayer.bindPopup(`<b>${selected.name}</b><br>${t('demoArea')} 5 / 10 / 15 / 20 / 30 ${t('minutes')}<br><small>${t('demoAreaNote')}</small>`);
     activeLayer.openPopup();
     return;
   }
@@ -417,16 +533,15 @@ async function calculateSelected(){
       }
     }).addTo(map);
 
-    activeLayer.bindPopup(`<b>${selected.name}</b><br>Gerçek yaya ağı izokronu: 5 / 10 / 15 / 20 / 30 dakika`);
+    activeLayer.bindPopup(`<b>${selected.name}</b><br>${t('realIsochrone')} 5 / 10 / 15 / 20 / 30 ${t('minutes')}`);
     map.fitBounds(activeLayer.getBounds(),{padding:[30,30]});
   }catch(err){
-    alert('Gerçek yaya alanı hesaplanamadı: '+err.message+
-          '\n\nAPI anahtarını kontrol edin. Demo alanını görmek için anahtar alanını boş bırakabilirsiniz.');
+    alert(t('apiError')+' '+err.message+'\n\n'+t('apiErrorHint'));
   }
 }
 
-// Hatalı script etiketi içeriye taşındı
 loadRealStationData();
+setLanguage(currentLanguage);
 </script>
 </body>
 </html>
