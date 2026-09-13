@@ -13,6 +13,13 @@ A lightweight interactive map prototype that visualizes how far a person can wal
 
 This project helps answer a practical urban planning question: how accessible is a location by foot from nearby transit stations?
 
+## Project at a glance
+
+- Coverage: Tokyo transit stations and nearby walkable areas
+- Focus: pedestrian access and station-to-neighborhood mobility
+- Output: interactive map with station selection and walking radius
+- Status: public prototype for demo, comparison, and early-stage planning
+
 ## Live demo
 
 Open the project directly here:
