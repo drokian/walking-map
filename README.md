@@ -95,6 +95,12 @@ This project is provided as-is for experimentation and educational use.
 
 Contributions are welcome. If you want to improve the map, expand the data model, or turn this prototype into a more complete accessibility tool, feel free to open an issue or submit a pull request.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution guidelines.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ## Screenshot
 
 <p align="center">
